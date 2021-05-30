@@ -16,11 +16,23 @@ namespace NETCore5Udemy.Controllers
         public CalculatorController(ILogger<CalculatorController> logger) => _logger = logger;
 
         [HttpGet("sum/{firstNumber}/{secondNumber}")]
-        public IActionResult Get(string firstNumber, string secondNumber)
+        public IActionResult GetSum(string firstNumber, string secondNumber)
         {
             if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
             {
                 var sum = ConvertToDecimal(firstNumber) + ConvertToDecimal(secondNumber);
+                return Ok(sum.ToString());
+            }
+
+            return BadRequest("Invalid input");
+        }
+
+        [HttpGet("difference/{firstNumber}/{secondNumber}")]
+        public IActionResult GetDifference(string firstNumber, string secondNumber)
+        {
+            if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
+            {
+                var sum = ConvertToDecimal(firstNumber) - ConvertToDecimal(secondNumber);
                 return Ok(sum.ToString());
             }
 
