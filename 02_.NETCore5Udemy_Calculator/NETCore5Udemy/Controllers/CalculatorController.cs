@@ -20,8 +20,8 @@ namespace NETCore5Udemy.Controllers
         {
             if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
             {
-                var sum = ConvertToDecimal(firstNumber) + ConvertToDecimal(secondNumber);
-                return Ok(sum.ToString());
+                var result = ConvertToDecimal(firstNumber) + ConvertToDecimal(secondNumber);
+                return Ok(result.ToString());
             }
 
             return BadRequest("Invalid input");
@@ -32,8 +32,44 @@ namespace NETCore5Udemy.Controllers
         {
             if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
             {
-                var sum = ConvertToDecimal(firstNumber) - ConvertToDecimal(secondNumber);
-                return Ok(sum.ToString());
+                var result = ConvertToDecimal(firstNumber) - ConvertToDecimal(secondNumber);
+                return Ok(result.ToString());
+            }
+
+            return BadRequest("Invalid input");
+        }
+
+        [HttpGet("multiplication/{firstNumber}/{secondNumber}")]
+        public IActionResult GetMultiplication(string firstNumber, string secondNumber)
+        {
+            if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
+            {
+                var result = ConvertToDecimal(firstNumber) * ConvertToDecimal(secondNumber);
+                return Ok(result.ToString());
+            }
+
+            return BadRequest("Invalid input");
+        }
+
+        [HttpGet("division/{firstNumber}/{secondNumber}")]
+        public IActionResult GetDivision(string firstNumber, string secondNumber)
+        {
+            if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
+            {
+                var result = ConvertToDecimal(firstNumber) / ConvertToDecimal(secondNumber);
+                return Ok(result.ToString());
+            }
+
+            return BadRequest("Invalid input");
+        }
+
+        [HttpGet("avg/{firstNumber}/{secondNumber}")]
+        public IActionResult GetAverage(string firstNumber, string secondNumber)
+        {
+            if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
+            {
+                var result = (ConvertToDecimal(firstNumber) + ConvertToDecimal(secondNumber)) / 2;
+                return Ok(result.ToString());
             }
 
             return BadRequest("Invalid input");
@@ -41,8 +77,7 @@ namespace NETCore5Udemy.Controllers
 
         private decimal ConvertToDecimal(string strNumber)
         {
-            decimal number;
-            if (decimal.TryParse(strNumber, out number))
+            if (decimal.TryParse(strNumber, out decimal number))
             {
                 return number;
             }
@@ -51,12 +86,11 @@ namespace NETCore5Udemy.Controllers
 
         private bool IsNumeric(string strNumber)
         {
-            double number;
             bool isNumber = double.TryParse(
                 strNumber,
                 System.Globalization.NumberStyles.Any,
                 System.Globalization.NumberFormatInfo.InvariantInfo,
-                out number);
+                out _);
             return isNumber;
         }
     }
